@@ -1,29 +1,26 @@
 #include <iostream>
 using namespace std;
 int arr[10];
-bool isused[10];
 int n, m;
-void func(int k)
+void DupliCombination(int k,int start)
 {
 	if (k == m)
 	{
-		for (int i = 0; i < k; i++)
+		for (int i = 0; i < m; i++)
 			cout << arr[i] << ' ';
 		cout << "\n";
 		return;
 	}
-	for (int i = 1; i <= n; i++)
+	for (int i = start; i <= n; i++)
 	{
-		if (k == 0 || (k > 0 && arr[k - 1] <= i))
-		{
-			arr[k] = i;
-			func(k + 1);
-		}
+		arr[k] = i;
+		DupliCombination(k + 1, i);
 	}
 }
 int main()
 {
 	cin.tie(0); ios::sync_with_stdio(0);
 	cin >> n >> m;
-	func(0);
+
+	DupliCombination(0,1);
 }
