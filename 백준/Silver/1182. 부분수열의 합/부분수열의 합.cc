@@ -5,22 +5,17 @@ using namespace std;
 bool isused1[MAX], isused2[MAX], isused3[MAX];
 int n, res, s;
 int arr[MAX], dat[MAX];
-void Combination(int cnt, int m,int start)
+void Ps(int sum,int cnt)
 {
-	if (cnt == m)
+	if (cnt == n)
 	{
-		int t = 0;
-		for (auto i : arr)
-			t += i;
-		if(t == s)
-		res++;
-		return;
+		if (sum == s)
+			res++;
+			return;
+		
 	}
-	for (int i = start; i < n; i++)
-	{
-		arr[cnt] = dat[i];
-		Combination(cnt + 1, m, i + 1);
-	}
+		Ps(sum,cnt+1);
+		Ps(sum+dat[cnt], cnt + 1);
 }
 int main()
 {
@@ -28,9 +23,7 @@ int main()
 	cin >> n >> s;
 	for (int i = 0; i < n; i++)
 		cin >> dat[i];
-	for (int i = 1; i <= n; i++)
-	{
-		Combination(0,i,0);
-	}
+	Ps(0,0);
+	if (s == 0) res--;
 	cout << res;
 }
