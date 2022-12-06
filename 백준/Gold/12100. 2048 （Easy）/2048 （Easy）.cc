@@ -14,7 +14,7 @@ void Push(vector <vector<int>>& tboard, int dir, int r, int c)
 		{
 			if (tboard[i][c] == 0)
 			{
-				for (int j = i; j < n; j++)
+				for (int j = i + 1; j < n; j++)
 				{
 					if (tboard[j][c] != 0)
 					{
@@ -31,7 +31,7 @@ void Push(vector <vector<int>>& tboard, int dir, int r, int c)
 		{
 			if (tboard[r][i] == 0)
 			{
-				for (int j = i; j >= 0; j--)
+				for (int j = i - 1; j >= 0; j--)
 				{
 					if (tboard[r][j] != 0)
 					{
@@ -48,7 +48,7 @@ void Push(vector <vector<int>>& tboard, int dir, int r, int c)
 		{
 			if (tboard[i][c] == 0)
 			{
-				for (int j = i; j >= 0; j--)
+				for (int j = i - 1; j >= 0; j--)
 				{
 					if (tboard[j][c] != 0)
 					{
@@ -65,7 +65,7 @@ void Push(vector <vector<int>>& tboard, int dir, int r, int c)
 		{
 			if (tboard[r][i] == 0)
 			{
-				for (int j = i; j < n; j++)
+				for (int j = i + 1; j < n; j++)
 				{
 					if (tboard[r][j] != 0)
 					{
@@ -135,7 +135,7 @@ void Sum(vector <vector<int>>& tboard, int dir, int r, int c)
 	return;
 }
 
-void solve(vector <vector<int>> tboard, int cnt, int start)
+void solve(vector <vector<int>> &tboard, int cnt)
 {
 	vector <vector<int>> v;
 	vector <int> vv(n);
@@ -189,7 +189,7 @@ void solve(vector <vector<int>> tboard, int cnt, int start)
 			}
 
 		}
-		solve(v, cnt + 1, i);
+		solve(v, cnt + 1);
 	}
 }
 int main()
@@ -203,15 +203,11 @@ int main()
 	for (int i = 0; i < n; i++)
 		for (int j = 0; j < n; j++)
 			tboard[i].push_back(0); 
-	for (int k = 0; k < 4; k++)
-	{
-
 		for (int i = 0; i < n; i++)
 			for (int j = 0; j < n; j++)
 				tboard[i][j] = board[i][j];
-
-		solve(tboard, 0, k);
-	}
+		solve(tboard, 0);
+	
 
 	cout << res;
 }
