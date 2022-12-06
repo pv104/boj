@@ -2,25 +2,12 @@
 #include <algorithm>
 #include <vector>
 using namespace std;
-#define X first
-#define Y second
 #define MAX 22
 int n, res;
 int board[MAX][MAX];
-bool check[MAX][MAX];
 // dir = 0 -> 위, 1 -> 오, 2 -> 아, else = 왼
-vector <vector<int>> Push(vector <vector<int>> tb, int dir, int r, int c)
+void Push(vector <vector<int>>& tboard, int dir, int r, int c)
 {
-	vector <int> v;
-	vector < vector<int>> tboard;
-	for (int i = 0; i < n; i++)
-		v.push_back(0);
-	for (int i = 0; i < n; i++)
-		tboard.push_back(v);
-	for (int i = 0; i < n; i++)
-		for (int j = 0; j < n; j++)
-			tboard[i][j] = tb[i][j];
-
 	if (dir == 0)
 	{
 		for (int i = 0; i < n; i++)
@@ -89,20 +76,10 @@ vector <vector<int>> Push(vector <vector<int>> tb, int dir, int r, int c)
 			}
 		}
 	}
-	return tboard;
+	return;
 }
-vector <vector<int>> Sum(vector <vector<int>> tb, int dir, int r, int c)
+void Sum(vector <vector<int>>& tboard, int dir, int r, int c)
 {
-	vector <vector<int>> tboard;
-	vector <int> v;
-	for (int i = 0; i < n; i++)
-		v.push_back(0);
-	for (int i = 0; i < n; i++)
-		tboard.push_back(v);
-	for (int i = 0; i < n; i++)
-		for (int j = 0; j < n; j++)
-			tboard[i][j] = tb[i][j];
-
 	if (dir == 0)
 	{
 		for (int i = 0; i < n - 1; i++)
@@ -114,7 +91,7 @@ vector <vector<int>> Sum(vector <vector<int>> tb, int dir, int r, int c)
 				tboard[i + 1][c] = 0;
 			}
 		}
-	tboard = Push(tboard, dir, r, c);
+	Push(tboard, dir, r, c);
 	}
 	else if (dir == 1)
 	{
@@ -127,7 +104,7 @@ vector <vector<int>> Sum(vector <vector<int>> tb, int dir, int r, int c)
 				tboard[r][i - 1] = 0;
 			}
 		}
-		tboard = Push(tboard, dir, r, c);
+		Push(tboard, dir, r, c);
 	}
 	else if (dir == 2)
 	{
@@ -140,7 +117,7 @@ vector <vector<int>> Sum(vector <vector<int>> tb, int dir, int r, int c)
 				tboard[i - 1][c] = 0;
 			}
 		}
-		tboard = Push(tboard, dir, r, c);
+		Push(tboard, dir, r, c);
 	}
 	else
 	{
@@ -153,9 +130,9 @@ vector <vector<int>> Sum(vector <vector<int>> tb, int dir, int r, int c)
 				tboard[r][i + 1] = 0;
 			}
 		}
-		tboard = Push(tboard, dir, r, c);
+		Push(tboard, dir, r, c);
 	}
-	return tboard;
+	return;
 }
 
 void solve(vector <vector<int>> tboard, int cnt, int start)
@@ -182,24 +159,24 @@ void solve(vector <vector<int>> tboard, int cnt, int start)
 		{
 			for (int j = 0; j < n; j++)
 			{
-				v = Push(v, i, 0, j);
-				v = Sum(v, i, 0, j);
+				 Push(v, i, 0, j);
+				 Sum(v, i, 0, j);
 			}
 		}
 		else if (i == 1) // 오, r 고정하고 c 움직임
 		{
 			for (int j = n - 1; j >= 0; j--)
 			{
-				v = Push(v, i, j, 0);
-				v = Sum(v, i, j, 0);
+				 Push(v, i, j, 0);
+				 Sum(v, i, j, 0);
 			}
 		}
 		else if (i == 2) // 아래, r 움직이고 c 고정
 		{
 			for (int j = n - 1; j >= 0; j--)
 			{
-				v = Push(v, i, 0, j);
-				v = Sum(v, i, 0, j);
+				 Push(v, i, 0, j);
+				 Sum(v, i, 0, j);
 			}
 
 		}
@@ -207,8 +184,8 @@ void solve(vector <vector<int>> tboard, int cnt, int start)
 		{
 			for (int j = 0; j < n; j++)
 			{
-				v = Push(v, i, j, 0);
-				v = Sum(v, i, j, 0);
+				 Push(v, i, j, 0);
+				 Sum(v, i, j, 0);
 			}
 
 		}
