@@ -1,10 +1,10 @@
 #include <iostream>
 #include <queue>
 #include <vector>
+#include <algorithm>
 using namespace std;
 #define MAX 1002
-int val[MAX], idx[MAX], dp[MAX];
-vector <pair<int, int>> v[MAX];
+int val[MAX], dp[MAX];
 int n;
 void input()
 {
@@ -14,36 +14,21 @@ void input()
 }
 int solve()
 {
+	dp[1] = 1;
 	int lis = 0;
-	v[0].push_back({ 0,0 });
-	for (int idx = 1; idx <= n; idx++)
+	for (int i = 1; i <= n; i++)
 	{
-		int tmin = 987654321;
-		for (auto i : v[lis])
-			tmin = min(i.second, tmin);
-		if (tmin < val[idx]) // lis 만족
+		for (int j = 1; j <= i; j++)
 		{
-			v[++lis].push_back({ idx,val[idx] });
+			if (val[j] < val[i])
+				dp[i] = max(dp[j] + 1, dp[i]);
+			
 		}
-		else
-		{
-			int i = lis;
-			bool flag = false;
-			while ((i-- > 0) && !flag)
-			{
-				for (int j = 0; j < v[i].size(); j++)
-				{
-					if (v[i][j].second < val[idx])
-					{
-						flag = true;
-						v[i+1].push_back({ idx,val[idx] });
-						break;
-					}
-				}
-			}
-		}
+		if (dp[i] == 0) 
+			dp[i] = 1;
 	}
-
+	for (int i = 1; i <= n; i++)
+		lis = max(lis, dp[i]);
 	return lis;
 
 }
