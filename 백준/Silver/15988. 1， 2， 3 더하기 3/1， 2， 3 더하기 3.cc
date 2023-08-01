@@ -16,8 +16,12 @@ int main()
 	for (int i = 0; i < t; i++)
 	{
 		cin >> n;
-		for (int i = 4; i <= n; i++)
-			dp[i] = (dp[i - 1] % MOD + dp[i - 2] % MOD + dp[i - 3] % MOD) % MOD;
+
+		if (dp[n] == 0)
+		{
+			for (int i = 4; i <= n; i++)
+				dp[i] = (dp[i - 1] % MOD + dp[i - 2] % MOD + dp[i - 3] % MOD) % MOD;
+		}
 		cout << dp[n] << "\n";
 	}
 }
