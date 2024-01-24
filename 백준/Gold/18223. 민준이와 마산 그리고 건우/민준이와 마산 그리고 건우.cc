@@ -31,10 +31,14 @@ void input() {
 void solve() {
 	while (!pq.empty()) {
 		auto cur = pq.top(); pq.pop();
-		for (auto i : v[cur.second]) {
-			if (dist[cur.second] + i.first < dist[i.second]) {
-				dist[i.second] = dist[cur.second] + i.first;
-				pq.push({ dist[i.second], i.second });
+		int curVertex = cur.second;
+		if (cur.first < dist[curVertex]) continue;
+		for (auto nxt : v[cur.second]) {
+			int nxtVertex = nxt.second;
+			int nxtCost = nxt.first;
+			if (dist[curVertex] + nxtCost < dist[nxtVertex]) {
+				dist[nxtVertex] = dist[curVertex] + nxtCost;
+				pq.push({ dist[nxtVertex], nxtVertex });
 			}
 		}
 	}
@@ -47,8 +51,8 @@ int main() {
 	int p1 = dist[p], p2 = dist[n];
 	init(p);
 	solve();
-	string res = suc;
-	if (p2 != (p1 + dist[n])) res = fail;
-	
+	string res = fail;
+	if (p2 == (p1 + dist[n])) res = suc;
+
 	cout << res;
 }
