@@ -14,10 +14,7 @@ int dist[MAX];
 void init(int x) {
 	fill(dist, dist + MAX, INF);
 	dist[x] = 0;
-	for (auto i : v[x]) {
-		pq.push(i);
-		dist[i.second] = i.first;
-	}
+	pq.push({ 0,x });
 }
 void input() {
 	cin >> n >> m >> p;
