@@ -8,7 +8,8 @@ int n, k, l;
 int curR = 0;
 queue <pair<int, char>> R; // 회전
 deque <pair<int, int>> S; // 뱀
-
+int dx[4] = { 0,1,0,-1 };
+int dy[4] = { 1,0,-1,0 };
 char board[MAX][MAX];
 void input() {
 	cin >> n >> k;
@@ -31,29 +32,19 @@ int solve() {
 	int nx = 1;
 	int ny = 1;
 	for (int timer = 1; ; timer++) {
-		if (curR == 0) {
-			ny++;
-		}
-		else if (curR == 1) {
-			nx++;
-		}
-		else if (curR == 2) {
-			ny--;
-		}
-		else if (curR == 3) {
-			nx--;
-		}
+		nx += dx[curR];
+		ny += dy[curR];
 		S.push_back({ nx,ny }); // 뱀 길이 늘리기
-		
-		
+
+
 		if (nx < 1 || ny < 1 || nx > n || ny > n) { // 벽
 			return timer;
 		}
 		for (int i = 0; i < S.size() - 1; i++) {
 			if (S[i].first == nx && S[i].second == ny) return timer;
-		
+
 		}
-		
+
 		if (board[nx][ny] != 'A') {
 			S.pop_front();
 		}
@@ -71,7 +62,7 @@ int solve() {
 			if (curR > 3) curR = 0;
 			R.pop();
 		}
-		
+
 	}
 	return res;
 }
