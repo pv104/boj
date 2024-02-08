@@ -138,8 +138,56 @@ vector<vector<int>> rotate(int op,vector<vector<int>> board) {
 		
 	}
 	else if (op == 6) {
-		for (int i = 0; i < 3; i++)
-			board = rotate(5, board);
+
+		int cn, cm;
+		vector<vector<int>> temp(r);
+		for (int i = 0; i < r; i++)
+			temp[i].resize(c);
+		cn = r / 2;
+		cm = c / 2;
+		// 1
+		for (int i = 0; i < cn; i++) {
+			for (int j = 0; j < cm; j++) {
+				int nx = i;
+				int ny = j + cm;
+				temp[i][j] = board[nx][ny];
+			}
+		}
+
+		// 2
+		for (int i = 0; i < cn; i++) {
+			for (int j = cm; j < c; j++) {
+				int nx = i + cn;
+				int ny = j;
+				temp[i][j] = board[nx][ny];
+			}
+		}
+
+		// 3
+		for (int i = cn; i < r; i++) {
+			for (int j = cm; j < c; j++) {
+				int nx = i;
+				int ny = j - cm;
+				temp[i][j] = board[nx][ny];
+			}
+		}
+		// 4
+
+		for (int i = cn; i < r; i++) {
+			for (int j = 0; j < cm; j++) {
+				int nx = i - cn;
+				int ny = j;
+				temp[i][j] = board[nx][ny];
+			}
+		}
+
+		for (int i = 0; i < r; i++) {
+			for (int j = 0; j < c; j++) {
+				board[i][j] = temp[i][j];
+			}
+		}
+
+
 	}
 	return board;
 }
