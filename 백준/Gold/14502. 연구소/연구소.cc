@@ -10,6 +10,8 @@ int n, m;
 queue <pair<int, int>> q;
 vector <pair<int, int>> start;
 int board[MAX][MAX];
+int tboard[MAX][MAX];
+pair<int,int> walls[3];
 bool visited[MAX][MAX];
 int dx[4] = { 1,0,-1,0 };
 int dy[4] = { 0,1,0,-1 };
@@ -22,16 +24,13 @@ void input() {
 		}
 	}
 }
-int bfs(vector<pair<int,int>>& WALLS) {
-	
-	vector<vector<int>> tboard(n);
-	for (int i = 0; i < n; i++)
-		tboard[i].resize(m);
+int bfs() {
+
 	for (int i = 0; i < n; i++)
 		for (int j = 0; j < m; j++)
 			tboard[i][j] = board[i][j];
 
-	for (auto i : WALLS) {
+	for (auto i : walls) {
 		tboard[i.first][i.second] = WALL;
 	}
 
@@ -62,7 +61,6 @@ int bfs(vector<pair<int,int>>& WALLS) {
 int solve() {
 	int res = 0;
 	for (int i = 0; i < n * m; i++) {
-		vector<pair<int, int>> walls;
 		
 		if (board[i / m][i % m] != SPACE) continue;
 		
@@ -73,11 +71,11 @@ int solve() {
 			for (int k = j + 1; k < n * m; k++) {
 				if (i == k || j == k) continue;
 				if (board[k / m][k % m] != SPACE) continue;
-				walls.push_back({ i / m, i % m });
-				walls.push_back({ j / m, j % m });
-				walls.push_back({ k / m, k % m });
-				res = max(res, bfs(walls));
-				walls.clear();
+				walls[0] = {i / m, i % m};
+				walls[1] = {j / m, j % m};
+				walls[2] = {k / m, k % m};
+				res = max(res, bfs());
+				
 			}
 		}
 	}
