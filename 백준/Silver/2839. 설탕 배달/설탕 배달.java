@@ -12,18 +12,16 @@ public class Main {
 	static final int INF = 987654321;
 	static final int RES = -1;
 	static int dp[],n;
-	static int f(int c) {
-		if(c < 3 || c == 4 || c == 7) return INF;
-		if(c == 3 || c == 5) return 1;
-		if(dp[c] != INF) return dp[c];
-		return dp[c] = Math.min(f(c-3)+1,f(c-5)+1);
-	}
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		n = Integer.parseInt(br.readLine());
-		dp = new int[n+1];
+		dp = new int[n+10];
 		Arrays.fill(dp, INF);
-		dp[n] = f(n);
-		if(dp[n] == INF) dp[n] = -1;
+		dp[3] = dp[5] = 1;
+		dp[6] = 2;
+		for(int i=8; i<=n; i++) {
+			dp[i] = Math.min(dp[i-3]+1, dp[i-5]+1);
+		}
+		if(dp[n] == INF) dp[n] = RES;
 		
 		System.out.print(dp[n]);
 	}
