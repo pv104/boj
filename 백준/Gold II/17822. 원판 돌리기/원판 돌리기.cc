@@ -92,10 +92,8 @@ void find() {
 			visited[i][j] = false;
 		}
 	}
-
 	int flag = 0;
 	for (int i = 1; i <= n; i++) {
-		if (!board[i].empty()) {
 			for (int j = 0; j < m; j++) {
 				if (board[i][j] == 0) continue;
 				for (int dir=0; dir<4; dir++)
@@ -109,15 +107,10 @@ void find() {
 					int val = board[i][j];
 					visited[nx][ny] = true;
 					Counts[val].push_back({ i,j });
-					
 					Counts[val].push_back({ nx,ny });
 				}
-
-
-			}
-		}
+			}	
 	}
-
 	flag += deletes();
 	if (flag == 0) removes();
 }
