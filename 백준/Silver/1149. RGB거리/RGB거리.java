@@ -1,16 +1,11 @@
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class Main {
 
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	static StringTokenizer st;
-	static StringBuilder sb = new StringBuilder();
 	static int dp[][];
 	static int n;
 	static final int R = 0;
@@ -45,7 +40,6 @@ public class Main {
 
 	public static void main(String[] args) throws Exception {
 			input();
-			solve();
 			System.out.print(solve());
 	}
 }
