@@ -8,18 +8,16 @@ public class Main {
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	static StringTokenizer st;
 	static StringBuilder sb = new StringBuilder();
-	static int n,res;
+	static int n;
 	static final int INF = 987654321;
 	static int dx[] = { -1,0,1,0};
 	static int dy[] = { 0,1,0,-1};
 	static int dist[][],board[][];
-	static boolean visited[][];
 	static PriorityQueue<Pair> pq;
 	static void input(int t) throws Exception {
 		n = t;
 		board = new int[n][n];
 		dist = new int[n][n];
-		visited = new boolean[n][n]; 
 		pq = new PriorityQueue<>();
 		for (int i = 0; i < board.length; i++) {
 			st = new StringTokenizer(br.readLine());
@@ -75,6 +73,6 @@ public class Main {
 		input(t);
 		sb.append("Problem ").append(counts++).append(": ").append(solve()).append("\n");
 		}
-		System.out.println(sb.toString());
+		System.out.print(sb.toString());
 	}
 }
