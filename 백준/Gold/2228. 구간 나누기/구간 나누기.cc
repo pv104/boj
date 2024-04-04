@@ -10,8 +10,7 @@ void input() {
 	cin >> N >> M;
 	for (int i = 0; i < N; i++)
 		cin >> arr[i];
-
-	for (int i = 0; i < MAX; i++)
+		for (int i = 0; i < MAX; i++)
 		for (int j = 0; j < MAX; j++)
 			for (int k = 0; k < 2; k++)
 				dp[i][j][k] = INF;
