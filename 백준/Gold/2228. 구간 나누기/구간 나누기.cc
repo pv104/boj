@@ -3,7 +3,7 @@
 #include <memory.h>
 using namespace std;
 #define MAX 102
-#define INF -32768*100
+#define INF -987654321
 int N, M;
 int arr[MAX], dp[MAX][MAX][2];
 void input() {
