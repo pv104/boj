@@ -17,8 +17,6 @@ void input() {
 				dp[i][j][k] = INF;
 }
 int re_dp(int idx, int m, int isUsed) {
-
-	if (m > M) return INF;
 	if (idx == N) {
 		if (m == M)
 			return 0;
@@ -33,14 +31,10 @@ int re_dp(int idx, int m, int isUsed) {
 	else {// 씀
 		t = max(t, re_dp(idx + 1, m, 1) + arr[idx]); // 현재 구간을 버리고 새로운 구간을 만드는 경우
 	}
-
-
 	return dp[idx][m][isUsed] = t;
 }
 int solve() {
-
 	int res = re_dp(0, 0, 0);
-
 	return res;
 }
 int main() {
