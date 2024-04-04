@@ -12,13 +12,12 @@ void input() {
 	memset(dp, -1, sizeof(dp));
 }
 int re_dp(int idx, int i,int j) {
-
 	if (idx == M) 
 		return 0;
 	if (dp[idx][i][j] != -1) return dp[idx][i][j];
-
-	int t = min(re_dp(idx + 1, arr[idx], j) + abs(i - arr[idx]),
-		re_dp(idx + 1, i, arr[idx]) + abs(j - arr[idx]));
+	int cur = arr[idx];
+	int t = min(re_dp(idx + 1, cur, j) + abs(i - cur),
+		re_dp(idx + 1, i, cur) + abs(j - cur));
 	return dp[idx][i][j] = t;
 }
 int solve() {
