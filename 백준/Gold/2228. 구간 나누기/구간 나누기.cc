@@ -26,8 +26,7 @@ int re_dp(int idx, int m, int isUsed) {
 	}
 	if (dp[idx][m][isUsed] != INF) return dp[idx][m][isUsed];
 
-	int t;
-	t = re_dp(idx + 1, m, 0); // 현재 구간을 그대로 가져가는 경우
+	int t = re_dp(idx + 1, m, 0); // 현재 구간을 그대로 가져가는 경우
 	if (isUsed == 0) {// 안씀 
 		t = max(t, re_dp(idx + 1, m + 1, 1) + arr[idx]); // 다음 구간을 만들면서 해당 구간의 첫 원소로 지금 인덱스를 사용
 	}
