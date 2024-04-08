@@ -17,12 +17,6 @@ int type[5][4] = { {}, // 0
 };
 int N;
 pair<int, int> worm[11][2];
-typedef struct pin {
-	int x;
-	int y;
-	int score;
-	int dir;
-}Pin;
 void init() {
 	for (int i = 0; i < MAX; i++) {
 		fill(board[i], board[i] + MAX, 0);
@@ -52,24 +46,19 @@ void input() {
 		}
 	}
 }
-int bfs(Pin pin) {
-	int startR = pin.x, startC = pin.y;
-	int r = startR, c = startC, score = pin.score, dir = pin.dir;
-	int block = 0;
-	int nr = r;
-	int nc = c;
-	int ndir = dir;
+int bfs(int R,int C,int DIR) {
+	int r = R, c = C, dir = DIR;
+	int block = 0, nr = r, nc = c, score = 0;
 	while (true) {
 		nr += dx[dir];
 		nc += dy[dir];
-		ndir = dir;
 		// 벽에 부딪힌 경우
 		if (nr < 0 || nc < 0 || nr >= N || nc >= N || board[nr][nc] == 5) {
 			return score * 2 + 1;
 		}
 		block = board[nr][nc];
 		// 제자리로 돌아왔거나, 블랙홀에 빠진 경우
-		if ((nr == startR && nc == startC)
+		if ((nr == R && nc == C)
 			|| (block == BLACK)) {
 			return score;
 		}
@@ -98,7 +87,7 @@ int solve() {
 			if (board[r][c] != 0) continue;
 			for (int dir = 0; dir < 4; dir++)
 			{
-				res = max(res, bfs({ r,c,0,dir }));
+				res = max(res, bfs(r,c,dir));
 			}
 		}
 	}
