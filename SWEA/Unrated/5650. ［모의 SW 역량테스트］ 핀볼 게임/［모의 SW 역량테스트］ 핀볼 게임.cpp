@@ -1,8 +1,5 @@
 #include <algorithm>
-#include <vector>
 #include <iostream>
-#include <map>
-#include <queue>
 using namespace std;
 #define MAX 102
 #define BLACK -1
@@ -17,6 +14,7 @@ int type[5][4] = { {}, // 0
 };
 int N;
 pair<int, int> worm[11][2];
+int wormCounts[11];
 void init() {
 	for (int i = 0; i < MAX; i++) {
 		fill(board[i], board[i] + MAX, 0);
@@ -24,6 +22,7 @@ void init() {
 	for (int i = 0; i < 11; i++)
 		for (int j = 0; j < 2; j++)
 			worm[i][j].first = worm[i][j].second = -1;
+	fill(wormCounts, wormCounts + 11, 0);
 }
 void input() {
 	cin >> N;
@@ -31,17 +30,12 @@ void input() {
 		for (int j = 0; j < N; j++)
 		{
 			cin >> board[i][j];
-			if (board[i][j] > 5) {
-				if (worm[board[i][j]][0].first == -1)
-				{
-					worm[board[i][j]][0].first = i;
-					worm[board[i][j]][0].second = j;
-				}
-				else
-				{
-					worm[board[i][j]][1].first = i;
-					worm[board[i][j]][1].second = j;
-				}
+			int cur = board[i][j];
+			int cnt = wormCounts[cur];
+			if (cur > 5) {
+					worm[cur][cnt].first = i;
+					worm[cur][cnt].second = j;
+					wormCounts[cur]++;
 			}
 		}
 	}
@@ -58,8 +52,7 @@ int bfs(int R,int C,int DIR) {
 		}
 		block = board[nr][nc];
 		// 제자리로 돌아왔거나, 블랙홀에 빠진 경우
-		if ((nr == R && nc == C)
-			|| (block == BLACK)) {
+		if ((nr == R && nc == C) || (block == BLACK)) {
 			return score;
 		}
 		// 웜홀을 만난 경우 => 방향 유지
@@ -70,6 +63,7 @@ int bfs(int R,int C,int DIR) {
 			}
 			nr = curWorm.first;
 			nc = curWorm.second;
+			continue;
 		}
 		// 블럭인 경우
 		else if (block > 0) {
@@ -81,11 +75,11 @@ int bfs(int R,int C,int DIR) {
 }
 int solve() {
 	int res = 0;
-	for (int r = 0; r < N; r++) {
-		for (int c = 0; c < N; c++)
+	for (int r = 0; r < N; ++r) {
+		for (int c = 0; c < N; ++c)
 		{
 			if (board[r][c] != 0) continue;
-			for (int dir = 0; dir < 4; dir++)
+			for (int dir = 0; dir < 4; ++dir)
 			{
 				res = max(res, bfs(r,c,dir));
 			}
