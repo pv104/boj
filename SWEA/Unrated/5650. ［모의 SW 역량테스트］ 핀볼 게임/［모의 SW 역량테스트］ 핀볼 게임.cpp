@@ -53,14 +53,12 @@ void input() {
 	}
 }
 int bfs(Pin pin) {
-	queue <Pin> q;
 	int startR = pin.x, startC = pin.y;
 	int r = startR, c = startC, score = pin.score, dir = pin.dir;
 	int block = 0;
 	int nr = r;
 	int nc = c;
 	int ndir = dir;
-	q.push(pin);
 	while (true) {
 		nr += dx[dir];
 		nc += dy[dir];
