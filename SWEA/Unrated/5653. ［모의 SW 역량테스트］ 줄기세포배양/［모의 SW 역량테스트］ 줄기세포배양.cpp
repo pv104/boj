@@ -33,7 +33,6 @@ struct cmp {
 	}
 };
 priority_queue <cell, vector<cell>, cmp> pq;
-queue <cell> q;
 void init() {
 	memset(board, 0, sizeof(board));
 	while (!pq.empty())
@@ -50,10 +49,13 @@ void input() {
 		}
 	}
 }
+
+// 사탕 먹을게. -소현, 민정-
 int solve() {
 	int res = 0;
 	int size;
 	int timer = 0;
+	vector <int> v;
 
 	while (++timer != K) {
 		size = pq.size();
@@ -76,7 +78,7 @@ int solve() {
 				}
 				// 현재 활성화된 시간을 기록해서 큐에 push(단,1초짜리는 바로 죽으니까 push x)
 				if(time > 0)
-				q.push({ r,c,hp,timer + hp - 1,0 });
+				v.push_back(timer + hp - 1);
 			}
 			else {
 				pq.push({ r,c,hp,time,activeTime }); continue;
@@ -86,9 +88,9 @@ int solve() {
 		
 	}
 
-	while (!q.empty()) {
-		auto cur = q.front(); q.pop();
-		if (K <= cur.time) res++;
+	for (auto i : v) {
+		if (K <= i) 
+			res++;
 	}
 	return pq.size() + res;
 }
