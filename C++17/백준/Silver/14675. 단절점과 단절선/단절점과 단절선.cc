@@ -1,19 +1,16 @@
 #include <iostream>
-#include <vector>
 #include <algorithm>
 using namespace std;
 #define MAX 100002
 int N, M, A, B, Q, K, T;
-#define pii pair<int,int>
-vector <int> graph[MAX];
 int arr[MAX];
 void input() {
 	cin >> N;
-	M = (N - 1);
-	for (int i = 0; i < M; i++) {
+	--N;
+	for (int i = 0; i < N; i++) {
 		cin >> A >> B;
-		arr[A]++;
-		arr[B]++;
+		++arr[A];
+		++arr[B];
 	}
 	cin >> Q;
 }
