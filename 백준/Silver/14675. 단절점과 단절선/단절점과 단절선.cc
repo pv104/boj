@@ -1,5 +1,2 @@
-#include <iostream>
-using namespace std;
-#define I cin
-int arr[100001];
-int main() {int N, A, B, Q, K, T; I.tie(0); ios::sync_with_stdio(0); I >> N; while (--N) { I >> A >> B; ++arr[A]; ++arr[B];}I >> Q;while (Q--){I >> T >> K;if (T == 1 && arr[K] == 1) {cout << "no" << "\n";continue;}cout << "yes" << "\n";}}
+#include<iostream>
+using namespace std;int arr[100001];int main(){int N,A,B;cin.tie(0);cin.sync_with_stdio(0);cin>>N;while(--N){cin>>A>>B;++arr[A];++arr[B];}cin>>N;while(N--){cin>>A>>B;if(A==1&&arr[B]==1){cout<<"no"<<"\n";continue;}cout<<"yes"<<"\n";}}
