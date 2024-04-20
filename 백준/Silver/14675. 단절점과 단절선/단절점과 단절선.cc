@@ -1,32 +1,5 @@
 #include <iostream>
 using namespace std;
-#define MAX 100002
-int N, A, B, Q, K, T;
-int arr[MAX];
-void input() {
-	cin >> N;
-	--N;
-	for (int i = 0; i < N; ++i) {
-		cin >> A >> B;
-		++arr[A];
-		++arr[B];
-	}
-	cin >> Q;
-}
-void solve() {
-
-	for (int i = 0; i < Q; ++i) {
-		cin >> T >> K;
-		if (T == 1) {
-			if (arr[K] == 1) {
-                cout << "no" << "\n";
-                continue;
-                }	
-		    }
-			cout << "yes" << "\n";
-	    }
-}
-int main() {
-	cin.tie(0); ios::sync_with_stdio(0);
-	input(); solve();
-}
+#define I cin
+int arr[100001];
+int main() {int N, A, B, Q, K, T; I.tie(0); ios::sync_with_stdio(0); I >> N; while (--N) { I >> A >> B; ++arr[A]; ++arr[B];}I >> Q;while (Q--){I >> T >> K;if (T == 1 && arr[K] == 1) {cout << "no" << "\n";continue;}cout << "yes" << "\n";}}
