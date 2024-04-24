@@ -1,50 +1,32 @@
 #include <iostream>
-#include <map>
 #include <vector>
 using namespace std;
-#define MAX 52
 vector<vector<int>> tree;
-int N, sizes[MAX];
-bool visited[MAX];
+int N, K, x, root = 0;
 void input() {
 	cin >> N;
-	int x;
 	tree.resize(N);
 	for (int i = 0; i < N; i++) {
 		cin >> x;
-		if (x == -1) continue;
+		if (x == -1) {
+			root = i;
+			continue;
+		}
 		tree[x].push_back(i);
 	}
+	cin >> K;
 }
-void dfs(int cur) {
-
-	for (auto nxt : tree[cur]) {
-		if (visited[nxt]) continue;
-		visited[nxt] = true;
-		dfs(nxt);
-	}
+int rec(int cur) {
+	int cnt = 0;
+	if (cur == K) return 0;
+	if (tree[cur].empty()) return 1;
+	for (auto nxt : tree[cur]) 
+		cnt += rec(nxt);
+	if (cnt == 0) ++cnt;
+	return cnt;
 }
 int solve() {
-
-	int res = N;
-	int x;
-	cin >> x;
-	visited[x] = true;
-	dfs(x);
-	
-	for (int i = 0; i < N; i++) {
-		if (visited[i]) {
-			--res; continue;
-		}
-		int cnt = tree[i].size();
-		for (auto j : tree[i]) {
-			if (visited[j])
-				cnt--;
-		}
-		tree[i].resize(cnt);
-		if (tree[i].size() != 0) --res;
-	}
-
+	int res = rec(root);
 	return res;
 }
 int main() {
