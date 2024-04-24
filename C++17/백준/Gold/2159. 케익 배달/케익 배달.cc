@@ -6,8 +6,8 @@ using namespace std;
 #define Y first
 #define X second
 #define ll long long 
+#define pii pair<int,int>
 #define INF INT64_MAX
-#define pii pair<ll,ll>
 #define dist(y1,x1,y2,x2) abs(y1 - y2) + abs(x1 - x2)
 ll N, dp[MAX][5], user[MAX][2], dists[5];
 // 12시부터 시계방향으로 12,3,6,9,제자리
@@ -24,22 +24,15 @@ void input() {
 }
 // 현재 위치의 idx, 현재 좌표(y,x)
 ll re_dp(ll idx, ll dir, pii cur) {
-	if (idx == N)
-	{
-
-		return 0;
-	}
+	if (idx == N) return 0;
 	ll cy = cur.Y;
 	ll cx = cur.X;
 
 	if (dp[idx][dir] != INF) return dp[idx][dir];
-	dp[idx][dir] = min(dp[idx][dir], re_dp(idx + 1, 4, { user[idx+1][0],user[idx+1][1] }) 
-		+ dist(cy, cx, user[idx + 1][0], user[idx + 1][1]));
-	for (ll ndir = 0; ndir < 4; ndir++)
+	for (ll ndir = 0; ndir < 5; ndir++)
 	{
 		ll ny = user[idx + 1][0] + dy[ndir];
 		ll nx = user[idx + 1][1] + dx[ndir];
-		if (ny < 0 || nx < 0 || ny >= 100000 || nx >= 100000) continue;
 		dp[idx][dir] = min(dp[idx][dir], re_dp(idx + 1, ndir, { ny,nx }) + dist(cy, cx, ny, nx));
 	}
 	return dp[idx][dir];
@@ -54,7 +47,5 @@ ll solve() {
 }
 int main() {
 	cin.tie(0); cin.sync_with_stdio(0);
-	//FILE* stream;
-	//freopen_s(&stream, "input.txt", "r", stdin);
 	input(); cout << solve();
 }
