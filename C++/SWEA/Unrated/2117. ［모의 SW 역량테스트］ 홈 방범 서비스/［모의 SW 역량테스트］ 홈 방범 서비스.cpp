@@ -46,7 +46,6 @@ void bfs(int r, int c) {
 				int ny = cur.Y + dy[dir];
 				int nx = cur.X + dx[dir];
 				if (ny < 0 || nx < 0 || ny >= N || nx >= N || visited[ny][nx]) continue;
-					//cout << " ny : " << ny << " nx : " << nx << " t : " << t << " k : " << k << "\n";
 				if (board[ny][nx])
 					t++;
 				visited[ny][nx] = true;
@@ -54,16 +53,18 @@ void bfs(int r, int c) {
 			}
 		}
 		profits = t * M;
-		/*cout << "q.size() : " << q.size() << "\n";*/
 		if (profits >= costs[k++])
 		{
 			res = max(res, t);
-			//cout << " r : " << r << " c : " << c;
-			//cout << " k : " << k << " res : " << res << "\n";
 		}
 	}
 }
 int solve() {
+	int t = 0;
+	for (int i = 0; i < N; i++)
+		for (int j = 0; j < N; j++)
+			t += board[i][j];
+	if (t == 1 || t == N * N) return t;
 	for (int i = 0; i < N; i++)
 	{
 		for (int j = 0; j < N; j++)
@@ -72,17 +73,16 @@ int solve() {
 			memset(visited, false, sizeof(visited));
 		}
 	}
+
 	return res;
 }
 int main() {
 	cin.tie(0); cin.sync_with_stdio(0);
-	/*FILE* stream;
-	freopen_s(&stream, "input.txt", "r", stdin);
-	freopen_s(&stream, "output.txt", "w", stdout);*/
 	cin >> T;
 	for (int i = 1; i < SIZE; i++)
 	{
-		int val = (i*i) + (i - 1)*(i - 1);
+		int j = i - 1;
+		int val = (i*i) + (j*j);
 		costs[i] = val;
 	}
 
