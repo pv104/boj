@@ -11,25 +11,21 @@ using namespace std;
 int N, M, T, res;
 int board[SIZE][SIZE];
 int costs[SIZE];
-bool visited[SIZE][SIZE];
 int dy[4] = { -1,0,1,0 };
 int dx[4] = { 0,1,0,-1 };
 void init() {
 	res = 0;
 	memset(board, 0, sizeof(board));
-	memset(visited, false, sizeof(visited));
 }
 void input() {
 	cin >> N >> M;
 	for (int i = 0; i < N; i++)
-	{
 		for (int j = 0; j < N; j++)
-		{
 			cin >> board[i][j];
-		}
-	}
 }
 void bfs(int r, int c) {
+	bool visited[SIZE][SIZE];
+	memset(visited, false, sizeof(visited));
 	queue <pii> q;
 	q.push({ r,c });
 	visited[r][c] = true;
@@ -60,17 +56,11 @@ void bfs(int r, int c) {
 	}
 }
 int solve() {
-	int t = 0;
-	for (int i = 0; i < N; i++)
-		for (int j = 0; j < N; j++)
-			t += board[i][j];
-	if (t == 1 || t == N * N) return t;
 	for (int i = 0; i < N; i++)
 	{
 		for (int j = 0; j < N; j++)
 		{
 			bfs(i, j);
-			memset(visited, false, sizeof(visited));
 		}
 	}
 
