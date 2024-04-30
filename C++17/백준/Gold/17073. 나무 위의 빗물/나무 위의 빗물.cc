@@ -1,28 +1,28 @@
 #include <iostream>
 #include <algorithm>
-#include <vector>
 using namespace std;
 #define SIZE 500002
 #define Y first
 #define P second
 int N, U, V;
 double W;
-vector <vector<int>> tree(SIZE);
+int tree[SIZE];
 void input() {
 	cin >> N >> W;
 	for (int i = 1; i < N; i++) {
 		cin >> U >> V;
-		tree[U].push_back(V);
-		tree[V].push_back(U);
+		tree[U]++;
+		tree[V]++;
 	}
 }
 double solve() {
 	double cnt = 0;
 	for (int i = 2; i <= N; i++)
 	{
-		if (tree[i].size() == 1) cnt++;
+		if (tree[i] == 1)
+			cnt++;
 	}
-	return (double)W / cnt;
+	return W / cnt;
 
 }
 int main() {
