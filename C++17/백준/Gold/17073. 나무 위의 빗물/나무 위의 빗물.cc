@@ -1,4 +1,3 @@
-#pragma warning(disable: 4996)
 #include <iostream>
 #include <algorithm>
 #include <vector>
@@ -14,9 +13,9 @@ double weights[SIZE];
 vector <vector<int>> tree(SIZE);
 queue <int> q;
 void input() {
-	scanf("%d %d", &N, &W);
+	cin >> N >> W;
 	for (int i = 1; i < N; i++) {
-		scanf("%d %d", &U, &V);
+		cin >> U >> V;
 		tree[U].push_back(V);
 		tree[V].push_back(U);
 	}
@@ -32,7 +31,6 @@ double bfs() {
 	while (!q.empty()) {
 
 		int cur = q.front(); q.pop();
-		//cout << " w[cur] : " << weights[cur] << "\n";
 		size = tree[cur].size();
 		for (auto nxt : tree[cur]) {
 			if (visited[nxt])
@@ -74,5 +72,7 @@ double solve() {
 }
 int main() {
 	cin.tie(0); cin.sync_with_stdio(0);
-	input(); printf("%.10lf", solve());
+	cout << fixed;
+	cout.precision(10);
+	input(); cout << solve();
 }
