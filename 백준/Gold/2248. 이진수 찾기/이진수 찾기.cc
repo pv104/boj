@@ -1,43 +1,65 @@
-#include <cstdio>
+#include <iostream>
+#include <algorithm>
+#include <memory.h>
+using namespace std;
+#define SIZE 33
+#define ll long long
+#define INF (ll)3e9
+ll N, L, I;
+ll dp[SIZE][SIZE];
 
-int N, L;
-unsigned int I;
+void input() {
+	cin >> N >> L >> I;
+	for (int i = 0; i <= N; i++)
+	{
+		for (int j = 0; j <= i; j++) {
+			if (i == 0 || j == 0)
+			{
+				dp[i][j] = 1;
+				continue;
+			}
+			
+			dp[i][j] = dp[i - 1][j - 1] + dp[i - 1][j];
 
-//N자리 중 L자리 비트만 1인 수의 개수
-unsigned int dp[32][32];
+		}
+	}
 
-unsigned int re_dp(int idx, int left) {
-	if (left < 0)
-		return 0;
-	if (idx == N)
-		return dp[idx][left] = 1;
-	if (dp[idx][left] > 0)
-		return dp[idx][left];
+	for (int i = 0; i <= N; i++)
+	{
+		for (int j = 0; j <= N; j++) {
+			if (i == 0 || j == 0)
+			{
+				dp[i][j] = 1;
+				continue;
+			}
+			dp[i][j] = dp[i][j - 1] + dp[i][j];
 
-	unsigned int& ret = dp[idx][left];
-	ret = re_dp(idx + 1, left) + re_dp(idx + 1, left - 1);
-	return ret;
+		}
+	}
+
+
 }
+// 현재 위치 i, dp[n-1][j] < i => 1, 
+void rec(ll n, ll l, ll i) {
 
-void re_constr(int idx, int left) {
-	if (idx == N) {
-		printf("\n");
-		return;
-	}
-	if (I > dp[idx + 1][left]) {
-		printf("1");
-		I -= dp[idx + 1][left];
-		left--;
-	}
+	if (n == 0) return;
+	/*cout << " n : " << n << " l : " << l << " i : " << i << "\n";*/
+	if (dp[n-1][l-1] < i && dp[n-1][l] < i)
+	{
+		cout << 1;
+		rec(n - 1, l - 1, i - (dp[n-1][l]));
+	} 
 	else
-		printf("0");
-
-	return re_constr(idx + 1, left);
+	{
+		cout << 0;
+		rec(n - 1, l, i);
+	}
+	return;
 }
-
+void solve() {
+	rec(N, L, I);
+}
 int main() {
-	scanf("%d %d %ud", &N, &L, &I);
-
-	re_dp(0, L);
-	re_constr(0, L);
+	cin.tie(0); cin.sync_with_stdio(0);
+	input(); solve();
 }
