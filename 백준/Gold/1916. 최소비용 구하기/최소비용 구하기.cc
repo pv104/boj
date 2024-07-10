@@ -1,5 +1,4 @@
 #include <iostream>
-#include <string>
 #include <queue>
 #include <memory.h>
 using namespace std;
@@ -7,7 +6,7 @@ using namespace std;
 #define Y first
 #define X second
 #define SIZE 1005
-#define INF (int)1e9<<1
+#define INF (int)1e9
 int N, M, S, E;
 int board[SIZE][SIZE], dist[SIZE];
 struct T
@@ -55,8 +54,6 @@ void input() {
 	}
 }
 int solve() {
-	int res = 0;
-
 	if (S == E) return 0;
 	while (!pq.empty()) {
 		auto cur = pq.top(); pq.pop();
@@ -66,19 +63,19 @@ int solve() {
 		for (int j = 1; j <= N; j++) {
 			int nxt = board[e][j];
 			if (nxt == -1) continue;
-			if (dist[j] > c + nxt)
+			int cn = c + nxt;
+			if (dist[j] > cn)
 			{
-				dist[j] = c + nxt;
-				pq.push({ e,j,c + nxt });
+				dist[j] = cn;
+				pq.push({ e,j,cn });
 			}
 		}
 	}
 
-	return res = dist[E];
+	return dist[E];
 }
 int main() {
 	fastio;
-
 	init();
 	input();
 	cout << solve();
