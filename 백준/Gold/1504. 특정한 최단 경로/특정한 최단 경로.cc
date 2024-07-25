@@ -19,7 +19,7 @@ void init() {
 	fill(cost1, cost1 + SIZE, INF);
 	fill(cost2, cost2 + SIZE, INF);
 
-	
+
 }
 void input() {
 	cin >> N >> M;
@@ -43,6 +43,7 @@ void dijkstra(int st, int* cost)
 		auto vtx = pq.top(); pq.pop();
 		int val = vtx.first; // start -> cur까지의 최단거리
 		int cur = vtx.second; // vertex
+		if (val < cost[cur]) continue;
 		for (int i = 0; i < board[cur].size(); i++) {
 			int nCost = board[cur][i].first;
 			int nxt = board[cur][i].second;
