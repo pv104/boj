@@ -4,22 +4,16 @@
 #include <vector>
 using namespace std;
 #define fastio cin.tie(0); cin.sync_with_stdio(0)
-#define Y first
-#define X second
 #define SIZE 803
 #define INF 300000000
 #define pii pair<int,int>
 int N, M, S, E, V1, V2;
 int costS[SIZE], cost1[SIZE], cost2[SIZE];
-bool visited[SIZE];
 vector<pii> board[SIZE];
 void init() {
-
 	fill(costS, costS + SIZE, INF);
 	fill(cost1, cost1 + SIZE, INF);
 	fill(cost2, cost2 + SIZE, INF);
-
-
 }
 void input() {
 	cin >> N >> M;
@@ -43,14 +37,14 @@ void dijkstra(int st, int* cost)
 		auto vtx = pq.top(); pq.pop();
 		int val = vtx.first; // start -> cur까지의 최단거리
 		int cur = vtx.second; // vertex
-		if (val < cost[cur]) continue;
+		if (val > cost[cur]) continue;
 		for (int i = 0; i < board[cur].size(); i++) {
-			int nCost = board[cur][i].first;
+			int nCost = board[cur][i].first + val;
 			int nxt = board[cur][i].second;
-			if (val + nCost < cost[nxt]) // 경유하는게 더 작으면
+			if (nCost < cost[nxt]) // 경유하는게 더 작으면
 			{
-				cost[nxt] = val + nCost; // cost를 교체
-				pq.push({ cost[nxt],nxt });
+				cost[nxt] = nCost; // cost를 교체
+				pq.push({ nCost,nxt });
 			}
 		}
 	}
@@ -58,7 +52,6 @@ void dijkstra(int st, int* cost)
 }
 int solve() {
 	S = 1, E = N;
-
 	dijkstra(S, costS);
 	dijkstra(V1, cost1);
 	dijkstra(V2, cost2);
@@ -71,7 +64,6 @@ int solve() {
 }
 int main() {
 	fastio;
-
 	init();
 	input();
 	cout << solve();
