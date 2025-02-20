@@ -19,14 +19,10 @@ void input() {
     }
 }
 int solve() {
-    // st에서 꺼내서 현재 시간과 비교하기
     while (!st.empty())
     {
-        pii cur = st.top();
-        st.pop();
-        // 시간 변경
+        pii cur = st.top(); st.pop();
         curTime = cur.first;
-        // 종료 큐에서 제거하고 용량 1개 늘려주기
         
         while ((!ed.empty()) && (ed.top() <= curTime))
         {
@@ -35,12 +31,10 @@ int solve() {
         }
         
         // 공간이 없는 경우
-        if (curCap == 0) {
+        if (curCap == 0) 
             maxCap++;
-        }
-        else {
+        else 
             curCap--;
-        }
         ed.push(cur.second);
     }
     return maxCap;
