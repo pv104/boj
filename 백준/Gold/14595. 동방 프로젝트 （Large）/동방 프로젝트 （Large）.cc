@@ -2,7 +2,6 @@
 #include <map>
 #include <algorithm>
 using namespace std;
-#define SIZE 2003
 map <int, int> m, range;
 int N, M;
 void input() {
@@ -10,7 +9,7 @@ void input() {
     int k, v;
     for (int i = 0; i < M; i++) {
         cin >> k >> v;
-        if (m.find(k) != m.end() && m.find(k)->second < v)
+        if (m.find(k) != m.end() && m[k] < v)
             m.insert_or_assign( k, v );
         else
             m.insert({ k, v });
@@ -19,16 +18,16 @@ void input() {
 int solve() {
     if (M == 0) return N;
     int l = m.begin()->first, r = m.begin()->second;
-    // l,r 계산
-    for (auto cur : m) {
+    for (auto& cur : m) {
         int k = cur.first, v = cur.second;
         if (k > r) {
             range.insert({ l, r });
             l = k;
             r = v;
         }
-        l = min(l, k);
-        r = max(r, v);
+        else { 
+            r = max(r, v);
+        }
         
     }
     range.insert({ l, r });
