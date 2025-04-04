@@ -3,14 +3,7 @@
 #include <algorithm>
 using namespace std;
 #define SIZE 2003
-struct cmp {
-    bool operator() (int a, int b) const&{
-        
-        if (a == b) return false;
-        return a < b;
-    }
-};
-map <int, int, cmp> m, range;
+map <int, int> m, range;
 int N, M;
 void input() {
     cin >> N >> M;
