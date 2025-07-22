@@ -28,7 +28,6 @@ public class Main {
 		}
 	}
 	public static void upCir(int r,int c, int val) {
-//		System.out.println(" upCir, r : " + r + " c : " + c);
 		if(r == UR && c == 0) return;
 		else if(r == UR && c < C-1) upCir(r,c+1,A[r][c]);
 		else if(r > 0 && c == C-1) upCir(r-1,c,A[r][c]);
@@ -37,7 +36,6 @@ public class Main {
 		A[r][c] = val;
 	}
 	public static void downCir(int r,int c,int val) {
-//		System.out.println(" downCir, r : " + r + " c : " + c + " val : " + val);
 		if(r == DR && c == 0) return;
 		else if(r == DR && c < C-1) downCir(r,c+1,A[r][c]);
 		else if(r < R-1 && c == C-1) downCir(r+1,c,A[r][c]);
@@ -65,14 +63,6 @@ public class Main {
 		A[UR][1] = 0;
 		downCir(DR,2,A[DR][1]);
 		A[DR][1] = 0;
-	}
-	public static void print() {
-		for (int r=0; r<R; r++) {
-			for (int c=0; c<C; c++) {
-				System.out.print(A[r][c] + " ");
-			}
-			System.out.println();
-		}
 	}
 	public static void main(String[] args) throws Exception {
 		BufferedReader br;
@@ -102,7 +92,6 @@ public class Main {
 		for (int r=0; r<R; r++)
 			for (int c=0; c<C; c++)
 				if(A[r][c] > 0) res += A[r][c];
-//		print();
 		System.out.print(res);
 	}
 }
