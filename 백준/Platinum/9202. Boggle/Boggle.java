@@ -14,13 +14,13 @@ public class Main {
 			for (char c : word.toCharArray()) {
 				int idx = c - 'A';
 				if (cur.child[idx] == null)
-					cur.child[idx] = new Node(); // 아직 이 접두사 없음
+					cur.child[idx] = new Node();
 				cur = cur.child[idx];
 			}
-			cur.isEnd = true; // 여기가 마지막
+			cur.isEnd = true;
 		}
 
-		boolean contains(String word) { // 완전일치검색
+		boolean contains(String word) {
 
 			if (root == null)
 				root = new Node();
@@ -31,10 +31,10 @@ public class Main {
 					return false;
 				cur = cur.child[idx];
 			}
-			return cur.isEnd; // 이걸로 끝나야(true 반환해야 true)
+			return cur.isEnd;
 		}
 
-		boolean hasPrefix(String prefix) { // 접두사검색
+		boolean hasPrefix(String prefix) {
 			if (root == null)
 				root = new Node();
 			Node cur = root;
@@ -44,7 +44,7 @@ public class Main {
 					return false;
 				cur = cur.child[idx];
 			}
-			return true; // 여기까지만 오면 됨(prefix까지만)
+			return true;
 		}
 
 		boolean checkIsUsed(String word) {
@@ -86,30 +86,25 @@ public class Main {
 	static boolean[][] visited;
 	static R res;
 	static ArrayDeque<String> usedWord;
-	// 트라이 써서 찾고, 4*4 완탐으로 결과 저장하기
 
 	public static void rec(int r, int c, String word, int count) {
 
-//		System.out.println(" r : " + r + " c : " + c + " word : " + word + " count : " + count +
-//				" ms : " + res.maxScore + " mLW : " + res.maxLenWord + " mWC : " + res.wordCount);
-
 		if (count > 8) {
-			// 반복 끝
 			return;
 		}
 		if (dictionary.contains(word)) {
 			if (!dictionary.checkIsUsed(word)) {
 				dictionary.toggleIsUsed(word);
-		res.maxScore += scoreArr[word.length()];
-		res.wordCount++;
-		if (res.maxLenWord.length() == 0)
-			res.maxLenWord = word;
-		if (res.maxLenWord.length() == word.length()) {
-			if (res.maxLenWord.compareTo(word) > 0)
-				res.maxLenWord = word;
-		} else if(res.maxLenWord.length() < word.length())
-			res.maxLenWord = word;
-		usedWord.add(word);
+				res.maxScore += scoreArr[word.length()];
+				res.wordCount++;
+				if (res.maxLenWord.length() == 0)
+					res.maxLenWord = word;
+				if (res.maxLenWord.length() == word.length()) {
+					if (res.maxLenWord.compareTo(word) > 0)
+						res.maxLenWord = word;
+				} else if (res.maxLenWord.length() < word.length())
+					res.maxLenWord = word;
+				usedWord.add(word);
 			}
 		}
 		for (int dir = 0; dir < 8; dir++) {
@@ -120,27 +115,21 @@ public class Main {
 			if (nr < 0 || nc < 0 || nr > 3 || nc > 3)
 				continue;
 			if (word.length() < 8 && !visited[nr][nc]) {
-				// 단어 있는지 확인
 				StringBuilder sb = new StringBuilder();
 				sb.append(word).append(A[nr][nc]);
 				String newWord = sb.toString();
-				// 단어 사용했는지 확인
 				if (dictionary.contains(newWord)) {
 					if (!dictionary.checkIsUsed(newWord)) {
-						// 사용하는 경우
 						visited[nr][nc] = true;
 						rec(nr, nc, newWord, count + 1);
 						visited[nr][nc] = false;
-//						dictionary.toggleIsUsed(newWord);
 					} else {
 						visited[nr][nc] = true;
 						rec(nr, nc, newWord, count + 1);
 						visited[nr][nc] = false;
 					}
 				} else {
-					// 단어 없음
 					if (dictionary.hasPrefix(newWord)) {
-						// 접두사라도 있으면
 						visited[nr][nc] = true;
 						rec(nr, nc, newWord, count + 1);
 						visited[nr][nc] = false;
@@ -159,20 +148,10 @@ public class Main {
 		visited = new boolean[4][4];
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
-				visited[i][j]= true;
+				visited[i][j] = true;
 				String word = String.valueOf(A[i][j]);
-				// word = 1글자일때 처리
-				if(dictionary.contains(word) && !dictionary.checkIsUsed(word)) {
-					dictionary.toggleIsUsed(word);
-					res.maxScore += scoreArr[word.length()];
-					res.wordCount++;
-					if(res.maxLenWord.length() == 0)
-						res.maxLenWord = word;
-				}
 				rec(i, j, word, 1);
 				visited[i][j] = false;
-//				System.out.println(" i " + i + " j " + j + " 종료, res 값 -> " + res.maxScore + " " + res.maxLenWord + " "
-//						+ res.wordCount);
 			}
 		}
 		StringBuilder sb = new StringBuilder();
@@ -183,11 +162,6 @@ public class Main {
 	public static void main(String[] args) throws Exception {
 		BufferedReader br;
 		br = new BufferedReader(new InputStreamReader(System.in));
-//		br = new BufferedReader(new FileReader("input.txt"));
-//		PrintStream fileOut = new PrintStream(new FileOutputStream("output.txt"));
-
-		// System.out을 파일로 리다이렉트
-//        System.setOut(fileOut);
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		StringBuilder sb = new StringBuilder();
 		N = Integer.parseInt(st.nextToken());
@@ -206,7 +180,7 @@ public class Main {
 			}
 			sb.append(run()).append("\n");
 			br.readLine();
-			while(!usedWord.isEmpty()) {
+			while (!usedWord.isEmpty()) {
 				dictionary.toggleIsUsed(usedWord.poll());
 			}
 		}
