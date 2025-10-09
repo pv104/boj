@@ -12,16 +12,18 @@ public class Main {
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		int N = Integer.parseInt(st.nextToken()),ans=0;
 		st = new StringTokenizer(br.readLine());
-		for (int i=0; i<SIZE; i++)
-			A[i] = new PriorityQueue<>();
 		for (int i=1; i<=N; i++) {
 			int v = Integer.parseInt(st.nextToken());
+			if(A[v+1] == null)
+				A[v+1] = new PriorityQueue<>();
 			if(!A[v+1].isEmpty()) {
 				A[v+1].poll();
 			}
 			else ans++;
+			if(A[v] == null)
+				A[v] = new PriorityQueue<>();
 			A[v].add(i);
 		}
-		System.out.println(ans);
+		System.out.print(ans);
 	}
 }
