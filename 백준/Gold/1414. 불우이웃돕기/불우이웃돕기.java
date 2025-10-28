@@ -81,10 +81,10 @@ public class Main {
 			for (int j = 1; j <= N; j++) {
 				char c = str.charAt(j - 1);
 				if (c >= 'a' && c <= 'z') {
-					A[i][j] = c - 96;
+					A[i][j] = c - 'a' + 1;
 
 				} else if (c >= 'A' && c <= 'Z') {
-					A[i][j] = c - 38;
+					A[i][j] = c - 'A' + 27;
 				} else
 					A[i][j] = 0;
 				total += A[i][j];
