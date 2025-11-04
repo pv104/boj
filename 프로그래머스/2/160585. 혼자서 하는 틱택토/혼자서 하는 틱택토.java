@@ -13,34 +13,31 @@ class Solution {
         return true;
     }
     static boolean isEnd() {
-        
-        boolean flag = (A[0][0] > 0 ) && A[0][0] == A[1][1] && A[1][1] == A[2][2];
-        flag = flag | (A[0][2] > 0  && (A[0][2] == A[1][1] && A[1][1] == A[2][0]));
-        flag = flag | (A[0][0] > 0  && (A[0][0] == A[1][0] && A[1][0] == A[2][0]));
-        flag = flag | (A[0][1] > 0  && (A[0][1] == A[1][1] && A[1][1] == A[2][1]));
-        flag = flag | (A[0][2] > 0  && (A[0][2] == A[1][2] && A[1][2] == A[2][2]));
-        flag = flag | (A[0][0] > 0  && (A[0][0] == A[0][1] && A[0][1] == A[0][2]));
-        flag = flag | (A[1][0] > 0  && (A[1][0] == A[1][1] && A[1][1] == A[1][2]));
-        flag = flag | (A[2][0] > 0  && (A[2][0] == A[2][1] && A[2][1] == A[2][2]));
+        boolean flag = false;
+        // 가로 3행, 세로 3열
+        for (int i=0; i<N; i++) {
+            int t = A[i][0],cnt=0;
+            for (int j=0; j<N; j++) {
+                if(t > 0 && t == A[i][j]) cnt++;
+            }
+            if(cnt == N) flag = true;
+            t = A[0][i]; cnt=0;
+            
+            for (int j=0; j<N; j++) {
+                if(t > 0 && t == A[j][i]) cnt++;
+            }
+            if(cnt == N) flag = true;
+        }
+        flag = flag | (A[0][0] > 0 && A[0][0] == A[1][1] && A[1][1] == A[2][2]);
+        flag = flag | (A[0][2] > 0 && A[0][2] == A[1][1] && A[1][1] == A[2][0]);
         
         return flag;
     }
     static void rec(int t, int f, int cnt) {
+        if(ans == 1) return;
         if(cnt > N*N) return;
 
         if(isEqual()) {
-            if(ans == 1) return;
-//           System.out.println(" t, f, cnt " + t + " " + f + " " + cnt);
-//             for (int k=0; k<N; k++) {
-//             for (int l=0; l<N; l++) {
-//                 if(A[k][l] == 0) System.out.print('.');
-//                 else if(A[k][l] == 1) System.out.print('O');
-//                 else System.out.print('X');
-//             }
-//             System.out.println(); 
-            
-        
-//             }
             ans = 1; return;
         } 
         if(isEnd()) return;
