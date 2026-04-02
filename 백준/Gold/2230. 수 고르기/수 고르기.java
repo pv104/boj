@@ -5,16 +5,14 @@ public class Main {
 
 
 	public static int N,M;
-	public static final int INF = -1001;
 	static int[] a;
 	public static int solve() {
 		int ans=Integer.MAX_VALUE;
 		int l=0,r=0;
-		while(r != N) {
+		while(l != N && r != N) {
 			int x = a[l];
 			int y = a[r];
-			if(y - x == M) return M;
-			else if(y - x < M) r++;
+			if(y - x < M) r++;
 			else {
 				ans = Math.min(ans,y-x);
 				l++;
