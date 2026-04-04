@@ -22,7 +22,8 @@ public class Main {
 	static int N,K;
 	static ArrayDeque<Integer>[][] A;
 	static int[][] Colors;
-	static Piece[] P;	
+	static Piece[] P;
+	static ArrayDeque<Integer> in = new ArrayDeque<>(), out = new ArrayDeque<>();
 	static boolean inRange(int r,int c) {
 		return r >= 0 && r < N && c >= 0 && c < N;
 	}
@@ -42,7 +43,6 @@ public class Main {
 		else return cur.d;
 	}
 	static void move(int idx) {
-		ArrayDeque<Integer> in = new ArrayDeque<>(), out = new ArrayDeque<>();
 		Piece cur = P[idx];
 		// 현재 위치
 		while(!A[cur.r][cur.c].isEmpty() && A[cur.r][cur.c].getFirst() != idx) {
