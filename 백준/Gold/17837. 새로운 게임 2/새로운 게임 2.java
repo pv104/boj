@@ -75,13 +75,10 @@ public class Main {
 			}
 		}
 	}
-	static boolean isEnd() {
-		for (int i=0; i<N; i++) {
-			for (int j=0; j<N; j++) {
-				if(A[i][j].size() >= 4) return true;
-			}
-		}
-		return false;
+	static boolean isEnd(int idx) {
+		Piece cur = P[idx];
+				if(A[cur.r][cur.c].size() >= 4) return true;
+				else return false;
 	}
 	static void print() {
 		System.out.println(" A. size ");
@@ -108,7 +105,7 @@ public class Main {
 				} 
 				// else 가만히 있기
 				// 3. 확인
-				if(isEnd()) {
+				if(isEnd(idx)) {
 					return turn;
 				}
 //				System.out.println(" turn, idx : " + turn + " " + idx);
