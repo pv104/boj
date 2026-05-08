@@ -1,0 +1,15 @@
+-- 코드를 작성해주세요
+# SQL은 자바의 반대로 생각하기(먼저 라벨 붙여두면, 그룹바이랑 카운트가 추가해줌)
+
+# LENGTH <= 10이면 LENGTH = NULL
+# FISH_INFO 테이블에서 잡은 BASS, SNAPPER의 카운트 : FISH_COUNT로 출력
+# FISH_TYPE으로 FISH_INFO랑 FISH_NAME_INFO 조인해서
+# FISH_NAME이 BASS인 경우의 FISH_TYPE과 FISH_NAME이 SNAPPER인 경우의 FISH_TYPE인 경우의 개수 카운트하기
+
+SELECT COUNT(*)
+FROM FISH_INFO FI
+JOIN FISH_NAME_INFO FNI ON FI.FISH_TYPE = FNI.FISH_TYPE
+WHERE FNI.FISH_NAME IN ('BASS','SNAPPER')
+
+# FISH_INFO의 모든 TYPE에 대해 그룹핑
+# 그 중에서 FISH_TYPE이 0 || 1인 경우 출력
